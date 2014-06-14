@@ -576,6 +576,40 @@ class Concept(_SingularResource):
 class Concepts(_SortableListResource):
     pass
 
+class Episode(_SingularResource):
+    aliases = AttributeDefinition('keep')
+    api_detail_url = AttributeDefinition('keep')
+    character_credits = AttributeDefinition('Characters')
+    characters_died_in = AttributeDefinition('Characters')
+    concept_credits = AttributeDefinition('Concepts')
+    air_date = AttributeDefinition(datetime.datetime)
+    date_added = AttributeDefinition(datetime.datetime)
+    date_last_updated = AttributeDefinition(datetime.datetime)
+    deck = AttributeDefinition('keep')
+    description = AttributeDefinition('keep')
+    first_appearance_characters = AttributeDefinition('Characters')
+    first_appearance_concepts = AttributeDefinition('Concepts')
+    first_appearance_locations = AttributeDefinition('Locations')
+    first_appearance_objects = AttributeDefinition('Objects')
+    first_appearance_storyarcs = AttributeDefinition('StoryArcs')
+    first_appearance_teams = AttributeDefinition('Teams')
+    has_staff_review = AttributeDefinition('keep')
+    id = AttributeDefinition('keep')
+    image = AttributeDefinition('keep')
+    episode_number = AttributeDefinition(int)
+    location_credits = AttributeDefinition('Locations')
+    name = AttributeDefinition('keep')
+    object_credits = AttributeDefinition('Objects')
+    person_credits = AttributeDefinition('People')
+    site_detail_url = AttributeDefinition('keep')
+    store_date = AttributeDefinition(datetime.datetime)
+    story_arc_credits = AttributeDefinition('StoryArcs')
+    team_credits = AttributeDefinition('Teams')
+    series = AttributeDefinition('Series')
+
+class Episodes(_SortableListResource):
+    pass
+
 class Issue(_SingularResource):
     aliases = AttributeDefinition('keep')
     api_detail_url = AttributeDefinition('keep')
@@ -830,6 +864,35 @@ class Publisher(_SingularResource):
     volumes = AttributeDefinition('Volumes')
 
 class Publishers(_SortableListResource):
+    pass
+
+class Series(_SingularResource):
+    aliases = AttributeDefinition('keep')
+    api_detail_url = AttributeDefinition('keep')
+    characters = AttributeDefinition('Characters')
+    count_of_episodes = AttributeDefinition(int)
+    date_added = AttributeDefinition(datetime.datetime)
+    date_last_updated = AttributeDefinition(datetime.datetime)
+    deck = AttributeDefinition('keep')
+    description = AttributeDefinition('keep')
+    first_episode = AttributeDefinition('Episode')
+    id = AttributeDefinition('keep')
+    image = AttributeDefinition('keep')
+    last_episode = AttributeDefinition('Episode')
+    locations = AttributeDefinition('Locations')
+    name = AttributeDefinition('keep')
+    publisher = AttributeDefinition('Publisher')
+    site_detail_url = AttributeDefinition('keep')
+    start_year = AttributeDefinition(int)
+
+    def _fix_api_error(self, name):
+        if name == 'character_credits':
+            return 'characters'
+        if name == 'location_credits':
+            return 'locations'
+        return super(Volume, self)._fix_api_error(name)
+
+class SeriesList(_SortableListResource):
     pass
 
 class Search(_ListResource):
