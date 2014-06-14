@@ -869,7 +869,7 @@ class Publishers(_SortableListResource):
 class Series(_SingularResource):
     aliases = AttributeDefinition('keep')
     api_detail_url = AttributeDefinition('keep')
-    characters = AttributeDefinition('Characters')
+    character_credits = AttributeDefinition('Characters')
     count_of_episodes = AttributeDefinition(int)
     date_added = AttributeDefinition(datetime.datetime)
     date_last_updated = AttributeDefinition(datetime.datetime)
@@ -879,18 +879,11 @@ class Series(_SingularResource):
     id = AttributeDefinition('keep')
     image = AttributeDefinition('keep')
     last_episode = AttributeDefinition('Episode')
-    locations = AttributeDefinition('Locations')
+    location_credits = AttributeDefinition('Locations')
     name = AttributeDefinition('keep')
     publisher = AttributeDefinition('Publisher')
     site_detail_url = AttributeDefinition('keep')
     start_year = AttributeDefinition(int)
-
-    def _fix_api_error(self, name):
-        if name == 'character_credits':
-            return 'characters'
-        if name == 'location_credits':
-            return 'locations'
-        return super(Volume, self)._fix_api_error(name)
 
 class SeriesList(_SortableListResource):
     pass
