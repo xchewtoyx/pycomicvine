@@ -171,6 +171,9 @@ class _Resource(object):
             if timeout != None:
                 timeout = int(params['timeout'])
             del params['timeout']
+        if 'pre_fetch_hook' in params:
+            params['pre_fetch_hook']()
+            del params['pre_fetch_hook']
         params['format'] = 'json'
         params = urlencode(params)
         url = baseurl+"?"+params
