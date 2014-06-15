@@ -35,7 +35,7 @@ import collections
 _API_URL = "https://www.comicvine.com/api/"
 
 _cached_resources = {}
-_api_hooks = collections.defaultdict(list)
+_api_hooks = {}
 
 api_key = ""
 
@@ -47,15 +47,15 @@ def str_to_datetime(value):
 
 def hook_register(hook_name, callback):
     if callable(callback):
-        _api_hooks[hook_name].append(callback)
+        _api_hooks[hook_name] = callback
     else:
         raise pycomicvine.error.IllegalArquementException(
             "Hook callbacks must be callable"
         )
 
 def hook_run(hook_name, *args, **kwargs):
-    for callback in _api_hooks[hook_name]:
-        callback(*args, **kwargs)
+    if callable(_api_hooks.get(hook_name)):
+        _api_hooks[hook_name](*args, **kwargs)
 
 class AttributeDefinition(object):
     def __init__(self, target, start_type = None):
